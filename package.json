@@ -1,0 +1,22 @@
+{
+  "name": "amazon-ecommerce-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vijaykumar51/amazon-ecommerce-clone.git"
+  },
+  "author": "Vijay Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vijaykumar51/amazon-ecommerce-clone/issues"
+  },
+  "homepage": "https://github.com/vijaykumar51/amazon-ecommerce-clone#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
