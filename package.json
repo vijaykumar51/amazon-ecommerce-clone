@@ -17,7 +17,13 @@
   },
   "homepage": "https://github.com/vijaykumar51/amazon-ecommerce-clone#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "express": "^4.16.3",
+    "mongoose": "^5.2.6",
     "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.2.3",
+    "@types/morgan": "^1.7.35"
   }
 }
