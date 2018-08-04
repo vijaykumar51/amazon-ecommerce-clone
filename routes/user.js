@@ -21,6 +21,13 @@ router.post(
 	})
 );
 
+router.get("/profile", (req, res, next) => {
+	User.findOne({ _id: req.user._id }, (err, user) => {
+		if (err) return next(err);
+		res.render("accounts/profile", { user: user });
+	});
+});
+
 router.get("/signup", (req, res) => {
 	res.render("accounts/signup", {
 		errors: req.flash("errors")
