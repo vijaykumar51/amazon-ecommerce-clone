@@ -5,13 +5,18 @@ const mongoose = require("mongoose");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
 const cookieParser = require("cookie-parser");
-var session = require("express-session");
-const flash = require("express-flash");
+const session = require("express-session");
+const flash = require("connect-flash");
+//TODO: read about connect-mongo
+const MongoStore = require("connect-mongo")(session);
+const passport = require("passport");
+
+const secret = require("./config/secret");
 
 const app = express();
 
 mongoose.connect(
-	"mongodb://root:rootuser1@ds263571.mlab.com:63571/amazon-clone",
+	secret.database,
 	{
 		useNewUrlParser: true
 	},
@@ -33,13 +38,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
 	session({
-		secret: "s3cr3t",
-		name: "sessionId",
+		secret: secret.secretKey,
+		// name: "sessionId",
 		resave: true,
-		saveUninitialized: true
+		saveUninitialized: true,
+		store: new MongoStore({ url: secret.database, autoReconnect: true })
 	})
 );
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -50,9 +58,9 @@ var userRoutes = require("./routes/user.js");
 app.use(mainRoutes);
 app.use(userRoutes);
 
-app.listen(4000, err => {
+app.listen(secret.port, err => {
 	if (err) {
 		console.log("Error on server starup ", err);
 	}
-	console.log("server started on port 4000");
+	console.log(`server started on port ${secret.port}`);
 });
