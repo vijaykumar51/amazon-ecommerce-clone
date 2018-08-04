@@ -4,6 +4,9 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
+const cookieParser = require("cookie-parser");
+var session = require("express-session");
+const flash = require("express-flash");
 
 const app = express();
 
@@ -26,6 +29,18 @@ app.use(morgan("dev"));
 // TODO: read about body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// TODO: read more about cookie, session and flash
+app.use(cookieParser());
+app.use(
+	session({
+		secret: "s3cr3t",
+		name: "sessionId",
+		resave: true,
+		saveUninitialized: true
+	})
+);
+app.use(flash());
+
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 
