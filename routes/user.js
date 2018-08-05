@@ -40,6 +40,7 @@ router.post("/signup", (req, res, next) => {
 	user.email = req.body.email;
 	user.password = req.body.password;
 	user.profile.name = req.body.name;
+	user.profile.picture = user.gravatar();
 
 	User.findOne({ email: user.email }, function(err, userExists) {
 		if (err) {
@@ -52,15 +53,20 @@ router.post("/signup", (req, res, next) => {
 			res.redirect("/signup");
 		} else {
 			user.save(err => {
-				if (err) {
-					console.log(err);
-					return next(err);
-				} else {
-					res.redirect("/");
-				}
+				if (err) return next(err);
+
+				req.logIn(user, function(err) {
+					if (err) return next(err);
+					res.redirect("/profile");
+				});
 			});
 		}
 	});
+});
+
+router.get("/logout", (req, res, next) => {
+	req.logOut();
+	res.redirect("/");
 });
 
 module.exports = router;
