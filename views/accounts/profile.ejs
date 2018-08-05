@@ -11,9 +11,16 @@
 				<p>Email:
 					<%= user.email %>
 				</p>
-				<p>Address:
-					<%= user.address %>
-				</p>
+				<% if (!user.profile.address) { %>
+					<p>Address:
+						<span>You haven't provided any address</span>
+					</p>
+					<% } else { %>
+						<p>Address:
+							<%= user.profile.address %>
+						</p>
+						<% } %>
+							<a href="/edit-profile" class="btn btn-primary btn-bg">Edit Profile</a>
 			</div>
 		</div>
 

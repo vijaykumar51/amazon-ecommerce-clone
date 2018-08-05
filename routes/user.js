@@ -64,6 +64,25 @@ router.post("/signup", (req, res, next) => {
 	});
 });
 
+router.get("/edit-profile", (req, res, next) => {
+	res.render("accounts/edit-profile.ejs", { message: req.flash("success") });
+});
+
+router.post("/edit-profile", (req, res, next) => {
+	User.findOne({ _id: req.user._id }, function(err, user) {
+		if (err) return next(err);
+
+		if (req.body.name) user.profile.name = req.body.name;
+		if (req.body.address) user.profile.address = req.body.address;
+
+		user.save(err => {
+			if (err) return next(err);
+			req.flash("success", "Profile changes saved successfully");
+			res.redirect("/edit-profile");
+		});
+	});
+});
+
 router.get("/logout", (req, res, next) => {
 	req.logOut();
 	res.redirect("/");
