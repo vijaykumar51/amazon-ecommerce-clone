@@ -7,7 +7,19 @@
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
 			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown">
+					<a class="dropdown-toggle" id="dropdown03" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown03">
+						<% for(var i=0; i<categories.length; i++) { %>
+							<a class="dropdown-item" href="#">
+								<%= categories[i].name %>
+							</a>
+							<% } %>
+					</div>
+				</li>
+
 				<% if(!user) { %>
 					<li class="nav-item dropdown">
 						<a class="dropdown-toggle" id="dropdown01" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Signup/Login</a>

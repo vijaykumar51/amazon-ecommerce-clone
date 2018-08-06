@@ -13,6 +13,8 @@ const passport = require("passport");
 
 const secret = require("./config/secret");
 
+var Category = require("./models/category");
+
 const app = express();
 
 mongoose.connect(
@@ -53,14 +55,24 @@ app.use((req, res, next) => {
 	res.locals.user = req.user;
 	next();
 });
+
+app.use((req, res, next) => {
+	Category.find({}, (err, categories) => {
+		if (err) next(err);
+		res.locals.categories = categories;
+		next();
+	});
+});
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 
 var mainRoutes = require("./routes/main.js");
 var userRoutes = require("./routes/user.js");
+var adminRoutes = require("./routes/admin");
 
 app.use(mainRoutes);
 app.use(userRoutes);
+app.use(adminRoutes);
 
 app.listen(secret.port, err => {
 	if (err) {

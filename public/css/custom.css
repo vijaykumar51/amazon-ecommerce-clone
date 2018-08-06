@@ -5,3 +5,12 @@ body {
 .margin-auto {
 	margin: 0 auto;
 }
+
+a.dropdown-toggle {
+	color: #fff;
+	text-decoration: none;
+}
+
+li.nav-item.dropdown {
+	margin: 0 10px;
+}
